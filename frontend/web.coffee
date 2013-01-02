@@ -26,8 +26,4 @@ module.exports = (port = 0, ip) ->
 	result =
 		app: app
 		io: io
-		subscribe: (game) ->
-			for event in game.EVENTS
-				game.on event, (data) ->
-					io.sockets.emit(event, data)
 
