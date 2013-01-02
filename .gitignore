@@ -1,6 +1,4 @@
 node_modules
 npm-debug.log
 *.js
-!wolf.js
-config.*
-!config.sample.yml
+/config/*.yaml

@@ -1,6 +1,0 @@
-- type: XMPP
-  room: test@chat.eagull.net
-  username: test_user@eagull.net
-  nickname: WolfGame
-  password: 123456
-  prefix: '!'

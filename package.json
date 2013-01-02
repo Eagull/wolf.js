@@ -17,6 +17,7 @@
     "xmpp-muc-handler": ">= 0.0.0",
     "express": "~2.5",
     "socket.io": "~0.9",
+    "js-yaml": "~1.0.3",
     "coffee-script": "~1.3"
   },
   "engines": {
