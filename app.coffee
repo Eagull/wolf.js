@@ -1,4 +1,8 @@
 'use strict'
+
+# Load configuration.
+config = require './wolf.js/configuration'
+
 process.env.NODE_ENV ?= 'dev'
 
 util = require 'util'
