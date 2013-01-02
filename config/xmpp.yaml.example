@@ -1,4 +1,7 @@
-room: wolfgame@example.com
 nickname: WolfGame
 username: jid@example.com
 password: 123456
+adminRoom: wolfops@example.com
+gameRooms:
+- wolfgame@example.com
+
