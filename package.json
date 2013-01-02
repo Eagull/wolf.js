@@ -1,0 +1,29 @@
+{
+  "name": "wolf.js",
+  "scripts": {
+    "start": "coffee app.coffee"
+  },
+  "version": "0.0.1",
+  "author": "Aaditya Bhatia <aadityabhatia@gmail.com>",
+  "contributors": [
+    "Aaditya Bhatia <aadityabhatia@gmail.com>",
+    "Brandon Cheng <bcheng.gt@gmail.com>",
+    "Konrad Borowski <glitchmr@myopera.com>"
+  ],
+  "description": "A bot that facilitates the Werewolf game in an XMPP chatroom",
+  "dependencies": {
+    "junction": ">= 0.0.0",
+    "junction-ping": "~0.1",
+    "xmpp-muc-handler": ">= 0.0.0",
+    "socket.io": "~0.9",
+    "coffee-script": "~1.3"
+  },
+  "engines": {
+    "node": ">=0.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Eagull/wolf.js.git"
+  },
+  "main": "app.coffee"
+}
