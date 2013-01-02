@@ -15,6 +15,7 @@
     "junction": ">= 0.0.0",
     "junction-ping": "~0.1",
     "xmpp-muc-handler": ">= 0.0.0",
+    "express": "~2.5",
     "socket.io": "~0.9",
     "coffee-script": "~1.3"
   },

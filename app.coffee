@@ -4,6 +4,7 @@ util = require 'util'
 junction = require 'junction'
 ping = require 'junction-ping'
 MucHandler = require 'xmpp-muc-handler'
+express = require 'express'
 
 mucHandler = new MucHandler()
 
@@ -15,6 +16,23 @@ xmppOptions =
 	type: 'client'
 	jid: process.env.XMPP_USER
 	password: process.env.XMPP_PASSWD
+
+app = express.createServer()
+io = require('socket.io').listen(app)
+
+app.configure 'dev', ->
+	app.use express.logger('dev')
+	io.set 'log level', 2
+
+app.configure 'production', ->
+	app.use express.logger()
+	io.set 'log level', 1
+	io.enable 'browser client minification'
+	io.enable 'browser client etag'
+	io.enable 'browser client gzip'
+
+app.get '/*', (req, res) ->
+	res.send "I live!"
 
 client = junction.create()
 
@@ -64,3 +82,6 @@ connection = client.connect(xmppOptions).on 'online', ->
 		if data.delay then out += " (sent at #{data.delay})"
 		util.log out
 
+app.listen process.env.PORT or 0, process.env.IP, ->
+	addr = app.address()
+	util.log "[#{process.env.NODE_ENV}] http://#{addr.address}:#{addr.port}/"
