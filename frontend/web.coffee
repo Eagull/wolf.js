@@ -6,7 +6,7 @@ module.exports = (port = 0, ip) ->
 	io = require('socket.io').listen(app)
 
 	app.configure 'dev', ->
-		app.use express.logger('dev')
+		app.use express.logger 'dev'
 		io.set 'log level', 2
 
 	app.configure 'production', ->

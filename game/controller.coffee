@@ -26,5 +26,5 @@ module.exports = class WolfController extends events.EventEmitter
 		# TODO: subscribe to room's events
 
 	reset: ->
-		@core = new WolfCore(@settings)
+		@core = new WolfCore @settings
 

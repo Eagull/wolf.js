@@ -30,7 +30,7 @@ module.exports = (CONFIG) ->
 	connection = client.connect(xmppOptions).on 'online', ->
 		util.log 'Connected as: ' + @jid
 		@send new junction.elements.Presence()
-		if not connection then throw new Error("connection object is not present")
+		if not connection then throw new Error "connection object is not present"
 		connection.on 'error', (err) -> console.error err
 		mucHandler.setConnection(connection)
 

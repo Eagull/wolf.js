@@ -16,11 +16,11 @@ mucHandler = xmppClient.mucHandler
 
 xmppClient.connection.on 'online', ->
 
-	adminRoom = mucHandler.joinRoom(XMPP_CONFIG.adminRoom, XMPP_CONFIG.nickname)
+	adminRoom = mucHandler.joinRoom XMPP_CONFIG.adminRoom, XMPP_CONFIG.nickname
 	adminRoom.on 'rosterReady', initializeAdminRoom
 
 	for room in XMPP_CONFIG.gameRooms
-		gameRoom = mucHandler.joinRoom(room, XMPP_CONFIG.nickname)
+		gameRoom = mucHandler.joinRoom room, XMPP_CONFIG.nickname
 		gameRoom.on 'rosterReady', initializeGameRoom
 
 initializeAdminRoom = (selfUser) ->
@@ -28,17 +28,17 @@ initializeAdminRoom = (selfUser) ->
 
 initializeGameRoom = (selfUser) ->
 
-	if(selfUser.affiliation isnt 'owner' and selfUser.affiliation isnt 'admin')
+	if selfUser.affiliation isnt 'owner' and selfUser.affiliation isnt 'admin'
 			@part("Grant me power before you demand my presence, fools.")
-			return console.error("Must be an admin in game room:", @roomId)
+			return console.error "Must be an admin in game room:", @roomId
 
 	console.log "joined game room:", @roomId
 
 	# initializing new controller for the game room
-	game = new WolfController(this, GAME_CONFIG)
+	game = new WolfController this, GAME_CONFIG
 
 	# binding game's public events to websockets
 	for event in game.EVENTS
 		game.on event, (data) ->
-			web.io.sockets.emit(event, data)
+			web.io.sockets.emit event, data
 
