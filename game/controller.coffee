@@ -4,6 +4,7 @@
 # uses timer and event handler to keep track of time and change game state
 # emits events captured by socket.io for publishing game status
 # one controller per room
+'use strict'
 
 WolfCore = require './core'
 events = require 'events'

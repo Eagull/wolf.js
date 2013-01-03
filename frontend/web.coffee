@@ -1,3 +1,5 @@
+'use strict'
+
 express = require 'express'
 util = require 'util'
 

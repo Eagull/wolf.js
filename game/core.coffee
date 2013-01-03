@@ -1,6 +1,7 @@
 # keeps track of game state
 # doesn't keep time; depends on controller to call hooks at right time
 # cannot be reused; initialize new core for each new game
+'use strict'
 
 module.exports = class WolfCore
 
@@ -11,7 +12,7 @@ module.exports = class WolfCore
 		@startedAt = Date.now()
 		@players = []
 		@lynch = []
-		
+
 
 		@currentState = @STATES[0]
 

@@ -1,3 +1,5 @@
+'use strict'
+
 junction = require 'junction'
 ping = require 'junction-ping'
 MucHandler = require 'xmpp-muc-handler'
