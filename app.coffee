@@ -29,8 +29,8 @@ initializeAdminRoom = (selfUser) ->
 initializeGameRoom = (selfUser) ->
 
 	if selfUser.affiliation isnt 'owner' and selfUser.affiliation isnt 'admin'
-			@part("Grant me power before you demand my presence, fools.")
-			return console.error "Must be an admin in game room:", @roomId
+		@part("Grant me power before you demand my presence, fools.")
+		return console.error "Must be an admin in game room:", @roomId
 
 	console.log "joined game room:", @roomId
 
