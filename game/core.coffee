@@ -3,6 +3,19 @@
 # cannot be reused; initialize new core for each new game
 'use strict'
 
+fs = require 'fs'
+
+Role = {}
+fs.readdir __dirname + '/roles', (err, roleFiles) ->
+	if err then throw err
+	for roleFile in roleFiles
+		try
+			roleClass = require __dirname + '/roles/' + roleFile
+			Role[roleClass.name] = roleClass
+		catch error
+			console.error error
+			continue
+
 module.exports = class WolfCore
 
 	STATES: ['new', 'waiting', 'day', 'night', 'ended']
