@@ -14,17 +14,39 @@ web = require('./frontend/web')(process.env.PORT, process.env.IP)
 xmppClient = require('./frontend/xmpp')(XMPP_CONFIG)
 mucHandler = xmppClient.mucHandler
 
+gameRooms = {}
+
 xmppClient.connection.on 'online', ->
 
 	adminRoom = mucHandler.joinRoom XMPP_CONFIG.adminRoom, XMPP_CONFIG.nickname
 	adminRoom.on 'rosterReady', initializeAdminRoom
 
 	for room in XMPP_CONFIG.gameRooms
-		gameRoom = mucHandler.joinRoom room, XMPP_CONFIG.nickname
-		gameRoom.on 'rosterReady', initializeGameRoom
+		gameRooms[room] = mucHandler.joinRoom room, XMPP_CONFIG.nickname
+		gameRooms[room].on 'rosterReady', initializeGameRoom
 
 initializeAdminRoom = (selfUser) ->
 	console.log "joined admin room:", @roomId
+
+	@on 'groupMessage', (data) ->
+		text = data.text.trim()
+		return if data.delay or not text.length
+		affiliation = @roster[data.nick].affiliation
+		if affiliation in ['owner', 'admin', 'member'] and text[0] is '!'
+			console.log "<#{data.nick}> #{text}"
+			cmd = text.split ' '
+			switch cmd[0].substr(1)
+				when 'join'
+					room = cmd[1]
+					nick = XMPP_CONFIG.nickname
+					gameRooms[room] = mucHandler.joinRoom room, XMPP_CONFIG.nickname
+					gameRooms[room].on 'rosterReady', initializeGameRoom
+				when 'part'
+					room = cmd[1]
+					if room of gameRooms
+						gameRooms[room].part()
+					else
+						@sendGroup "Can't part a room that I'm not a part of. Did you really mean #{room}?"
 
 initializeGameRoom = (selfUser) ->
 
